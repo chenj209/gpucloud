@@ -92,20 +92,14 @@ https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v7.0.5/prod/9
 
 		jupyter notebook password  
 		
-23. Run:  
+23. Run this on the remote server:  
 		
 		jupyter notebook --no-browser --port=8887
 
+24. Run this on your local computer
 
-		ssh -i ~/.ssh/google_compute_engine -L 8899:localhost:8888 USERNAME@IPADDRESS
-		jupyter notebook  
+		ssh -N -L localhost:8888:localhost:8887 username@remote
 		
-		
-![GPU9](images/GPU_9.png)  
-
-24. Open Browser and type in token:  
-
-		https://localhost:8899/
 		
 25. Install Keras and Tensorflow:
 

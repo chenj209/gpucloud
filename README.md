@@ -1,61 +1,45 @@
 # Google Cloud GPU Instance
 Instructions for setting up a GPU instance on Google Cloud
-
-1. Install Google Cloud SDK on your laptop:  
-https://cloud.google.com/sdk/
-2. Install file by executing the following in the terminal:  
-
-		./google-cloud-sdk/install.sh  
-	
-3. Initialize gcloud in terminal (https://cloud.google.com/compute/docs/gcloud-compute/?hl=de):  
-
-		gcloud init  
-
-4. Request limit increase for instances  
-5. Put in number of GPUs & CPUs, Size:  
+1. Request limit increase for instances  
+2. Put in number of GPUs & CPUs, Size:  
 https://console.cloud.google.com/compute/quotas?hl=de&_ga=1.69181649.1124953923.1496188820  
 
-6. Create GPU instance:
+3. Create GPU instance:
 ![GPU1](images/GPU_1.png)  
 
-7.  
+4.  
 ![GPU2](images/GPU_2.png)  
 
-8. GPU are only available in certain areas:  
+5. GPU are only available in certain areas:  
 ![GPU_Area](images/GPU_area.png)  
 
-9.  
+6.  
 - Choose Boot disk -> Ubuntu 16.04 LTS  
 - Choose 30 GB HDD  
 ![GPU3](images/GPU_3.png)  
 
-10. Select zone, number of GPUs & CPUs and memory  
+7. Select zone, number of GPUs & CPUs and memory  
 ![GPU4](images/GPU_4.png)  
 
-11. Allow HTTP & HTTPS traffic  
+8. Allow HTTP & HTTPS traffic  
 ![GPU6](images/GPU_6.png)  
 
-12. Instance is set up  
+9. Instance is set up  
 ![GPU7](images/GPU_7.png)  
 
-13. Connect to instance:    
+10. Connect to instance:    
 
-		gcloud compute config-ssh  
+		ssh username@remote  
 
 ![GPU8](images/GPU_8.png)  
 
-14. Or:  
+11. Install GPU drivers: 
 
-		gcloud compute ssh instance-2 --zone us-west1-b
- 		ssh –i ~/.ssh/google_compute_engine USERNAME@IP_ADDRESS  
-
-15. Install GPU drivers: 
-
-		wget https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64-deb
-		mv cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64-deb cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64.deb
-		sudo dpkg -i cuda-repo-ubuntu1604_8.0.61-1_amd64.deb  
+		wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
+		sudo dpkg -i cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
+		sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
 		sudo apt-get update  
-		sudo apt-get install cuda -y  
+		sudo apt-get install cuda-9-0  
 
 16. Insert lines in bashrc:  
  
@@ -67,20 +51,21 @@ https://console.cloud.google.com/compute/quotas?hl=de&_ga=1.69181649.1124953923.
 
 17. Download cuDNN from Nvidia Developer site -> Sign Up required  
 - https://developer.nvidia.com/rdp/cudnn-download  
-- Save on laptop: https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v5.1/prod_20161129/8.0/cudnn-8.0-linux-x64-v5.1-tgz  
+- Save on laptop: 
+https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v7.0.5/prod/9.0_20171129/cudnn-9.0-linux-x64-v7
 
 18. Open terminal on laptop and copy file to instance:  
  
-		gcloud compute scp cudnn-8.0-linux-x64-v5.1.tgz *INSTANCE_NAME*:~
+		scp cudnn-9.0-linux-x64-v7.tgz *INSTANCE_NAME*:~
 
 
 19. Go to terminal on instance and extract & install:  
  
-		tar -xzvf cudnn-8.0-linux-x64-v5.1.tgz  
+		tar -xzvf cudnn-9.0-linux-x64-v7.tgz  
 		sudo cp cuda/lib64/* /usr/local/cuda/lib64/  
 		sudo cp cuda/include/cudnn.h /usr/local/cuda/include/  
 		rm -rf ~/cuda  
-		rm cudnn-8.0-linux-x64-v5.1.tgz  
+		rm cudnn-9.0-linux-x64-v7.tgz  
 		sudo apt-get update   
 
 20. Install python packages:  
@@ -102,27 +87,15 @@ https://console.cloud.google.com/compute/quotas?hl=de&_ga=1.69181649.1124953923.
 - Generate config file:  
 
 		jupyter notebook --generate-config
-		mkdir certs
-		sudo openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out mycert.pem  
 		
-- Configure jupyter:  
+- Configure jupyter password:  
 
-		cd ~/.jupyter/
-		vi jupyter_notebook_config.py  
+		jupyter notebook password  
 		
-- Change username if necessary:  
+23. Run:  
+		
+		jupyter notebook --no-browser --port=8887
 
-		c = get_config()
-		c.IPKernelApp.pylab = 'inline'  # if you want plotting support always in your notebook
-		c.NotebookApp.certfile = u'/home/ubuntu/certs/mycert.pem' #location of your certificate file
-		c.NotebookApp.ip = '*'
-		c.NotebookApp.open_browser = False  #so that the ipython notebook does not opens up a browser by default
-		#c.NotebookApp.password = u'sha1:98ff0e580111:12798c72623a6eecd54b51c006b1050f0ac1a62d'  #the encrypted password we generated above
-		c.NotebookApp.port = 8888  
-		
-		source .bashrc
-		
-23. Create SSH tunnel:  
 
 		ssh -i ~/.ssh/google_compute_engine -L 8899:localhost:8888 USERNAME@IPADDRESS
 		jupyter notebook  

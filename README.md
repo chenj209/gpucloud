@@ -85,9 +85,14 @@ https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v7.0.5/prod/9
 
 22. Set Anaconda as preferred environment:  
 - `which python` should be `usr/bin/python`  
+
 - Important:  
 
 		source .bashrc  
+23. Create and activate conda environment
+
+		conda create -n env python=2.7
+		source activate env
 - Generate config file:  
 
 		jupyter notebook --generate-config

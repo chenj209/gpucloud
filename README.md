@@ -77,6 +77,8 @@ https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v7.0.5/prod/9
 		sudo apt-get install python-pip  
 		sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook  
 		sudo apt-get install python-pandas python-sympy 
+		
+21. Install Opencv 2.4 following this link: https://medium.com/@mengjiunchiou/build-opencv-caffe-with-cuda-9-0-on-ubuntu-16-04-b2794a41612d
 
 21. Install Anaconda:  
  

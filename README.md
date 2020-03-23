@@ -93,6 +93,13 @@ https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v7.0.5/prod/9
 
 		conda create -n env python=2.7
 		source activate env
+		
+24. Install jupyter notebook in virtualenv
+
+		pip install notebook
+		pip install --user ipykernel
+		python -m ipykernel install --user --name=env
+		
 - Generate config file:  
 
 		jupyter notebook --generate-config

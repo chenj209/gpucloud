@@ -100,6 +100,33 @@ https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v7.0.5/prod/9
 		pip install --user ipykernel
 		python -m ipykernel install --user --name=env
 		
+25. Install Keras and Tensorflow:
+		
+		pip install tensorflow-gpu==1.7
+		pip install keras==2.1.3
+		pip install opencv-python
+
+26. git clone Keras Personlab
+		
+		git clone https://github.com/octiapp/KerasPersonLab.git
+		
+27. Download reset weight from https://drive.google.com/file/d/1ulygah5BTWjhSGGpN20-eYV5NAozdE8Z/view to ~/.keras/models
+
+28. Download COCO dataset
+
+		wget http://images.cocodataset.org/zips/train2017.zip
+		unzip train2017.zip
+		wget http://images.cocodataset.org/zips/val2017.zip
+		unzip val2017.zip
+		wget http://images.cocodataset.org/zips/test2017.zip
+		unzip test2017.zip
+		wget http://images.cocodataset.org/annotations/annotations_trainval2017.zip
+		unzip annotations_trainval2017.zip
+		mv annotations trainval_annotations
+		wget http://images.cocodataset.org/annotations/image_info_test2017.zip
+		unzip image_info_test2017.zip
+
+		
 - Generate config file:  
 
 		jupyter notebook --generate-config
@@ -117,11 +144,7 @@ https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v7.0.5/prod/9
 		ssh -N -L localhost:8888:localhost:8887 username@remote
 		
 		
-25. Install Keras and Tensorflow:
 
-		pip/conda install keras
-		pip/conda install tensorflow-gpu
-		conda install opencv
 		
 26. If GPU process is not running, try to run a keras/tf model first:  
 

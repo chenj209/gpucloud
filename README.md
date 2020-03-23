@@ -126,6 +126,13 @@ https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v7.0.5/prod/9
 		wget http://images.cocodataset.org/annotations/image_info_test2017.zip
 		unzip image_info_test2017.zip
 
+- Install additinoal python package for data preprocessing
+
+		pip install Cython
+		pip install pycocotools
+		pip install tqdm
+		pip install matplotlib
+		pip install h5py
 		
 - Generate config file:  
 

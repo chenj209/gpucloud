@@ -99,8 +99,8 @@ https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v7.0.5/prod/9
 		
 23. Copy opencv to env
 
-		sudo cp /usr/local/lib/python2.7/site-packages/cv2.so /home/kindercjd/anaconda3/envs/env/lib/python2.7/site-packages/
-		sudo cp /usr/local/lib/python2.7/site-packages/cv.py /home/kindercjd/anaconda3/envs/env/lib/python2.7/site-packages/
+		sudo cp /usr/local/lib/python2.7/dist-packages/cv2.so /home/kindercjd/anaconda3/envs/env/lib/python2.7/site-packages/
+		sudo cp /usr/local/lib/python2.7/dist-packages/cv.py /home/kindercjd/anaconda3/envs/env/lib/python2.7/site-packages/
 		
 24. Install jupyter notebook in virtualenv
 
@@ -112,7 +112,6 @@ https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v7.0.5/prod/9
 		
 		pip install tensorflow-gpu==1.7
 		pip install keras==2.1.3
-		pip install opencv-python
 
 26. git clone Keras Personlab
 		
